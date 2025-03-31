@@ -1,9 +1,11 @@
 using CuroTec.API.DTOs;
+using CuroTec.API.Hubs;
 using CuroTec.Domain.Entities;
 using CuroTec.Domain.Enums;
 using CuroTec.Domain.Interfaces;
 using CuroTec.Infrastructure;
 using CuroTec.Infrastructure.Repositories;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSignalR();
+
 
 builder.Services.AddDbContext<CuroTecContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
@@ -21,6 +25,7 @@ builder.Services.AddDbContext<CuroTecContext>(options =>
 builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 
 var app = builder.Build();
+app.MapHub<DashboardHub>("/dashboardHub");
 
 app.MapGet("/vehicles/{page:int}/{pageSize:int}", async (int page, int pageSize,IVehicleRepository vehicleRepository) =>
 {
@@ -48,7 +53,7 @@ app.MapGet("/vehicles/color/", async (string color, IVehicleRepository vehicleRe
 });
 
 
-app.MapPost("/vehicles", async (VehicleDto dto, IVehicleRepository vehicleRepository) =>
+app.MapPost("/vehicles", async (VehicleDto dto, IVehicleRepository vehicleRepository, IHubContext<DashboardHub> hubContext) =>
 {
     var newVehicle = new Vehicle(
         vehicleType: dto.VehicleType,
@@ -56,6 +61,8 @@ app.MapPost("/vehicles", async (VehicleDto dto, IVehicleRepository vehicleReposi
     );
 
     await vehicleRepository.AddAsync(newVehicle);
+
+    await hubContext.Clients.All.SendAsync("ReceiveUpdate", $"New vehicle created: {newVehicle.Color} - {newVehicle.VehicleType}");
 
     return Results.Created($"/vehicles/{newVehicle.Id}", newVehicle);
 });
