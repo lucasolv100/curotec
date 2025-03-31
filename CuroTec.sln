@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CuroTec.API", "CuroTec.API\CuroTec.API.csproj", "{A6E75850-4458-44BC-A183-ED7A0123521F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CuroTec.Domain", "CuroTec.Domain\CuroTec.Domain.csproj", "{D1A11A86-48CF-4142-A3B5-8BEEC75FB250}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CuroTec.Infrastructure", "CuroTec.Infrastructure\CuroTec.Infrastructure.csproj", "{6DA258E3-F598-442C-BC84-B3FF1AD72E58}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A6E75850-4458-44BC-A183-ED7A0123521F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6E75850-4458-44BC-A183-ED7A0123521F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6E75850-4458-44BC-A183-ED7A0123521F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6E75850-4458-44BC-A183-ED7A0123521F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1A11A86-48CF-4142-A3B5-8BEEC75FB250}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1A11A86-48CF-4142-A3B5-8BEEC75FB250}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1A11A86-48CF-4142-A3B5-8BEEC75FB250}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1A11A86-48CF-4142-A3B5-8BEEC75FB250}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DA258E3-F598-442C-BC84-B3FF1AD72E58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DA258E3-F598-442C-BC84-B3FF1AD72E58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DA258E3-F598-442C-BC84-B3FF1AD72E58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DA258E3-F598-442C-BC84-B3FF1AD72E58}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
