@@ -52,14 +52,6 @@ namespace CuroTec.Infrastructure.Repositories
             return vehicle;
         }
 
-        public async Task<bool> DeleteAsync(int id)
-        {
-            var vehicle = await _context.Vehicles.FindAsync(id);
-            if (vehicle == null) return false;
-
-            _context.Vehicles.Remove(vehicle);
-            await _context.SaveChangesAsync();
-            return true;
-        }
+        
     }
 }

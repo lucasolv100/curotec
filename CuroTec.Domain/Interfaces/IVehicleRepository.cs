@@ -13,7 +13,6 @@ namespace CuroTec.Domain.Interfaces
         Task<Vehicle> GetByIdAsync(int id);
         Task<Vehicle> AddAsync(Vehicle vehicle);
         Task<Vehicle> UpdateAsync(Vehicle vehicle);
-        Task<bool> DeleteAsync(int id);
         Task<Vehicle> GetByTypeAsync(VehicleType type);
         Task<Vehicle> GetByColorAsync(string color);
     }

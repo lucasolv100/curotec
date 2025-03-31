@@ -67,6 +67,7 @@ app.MapPut("/vehicles/{id:int}", async (int id, VehicleDto dto, IVehicleReposito
     if (vehicle is null) return Results.NotFound();
 
     vehicle.Update(dto.VehicleType, dto.Color);
+    await vehicleRepository.UpdateAsync(vehicle);
 
     return Results.Ok(vehicle);
 });
@@ -78,6 +79,8 @@ app.MapDelete("/vehicles/{id:int}", async (int id, IVehicleRepository vehicleRep
     if (vehicle is null) return Results.NotFound();
 
     vehicle.Delete();
+    await vehicleRepository.UpdateAsync(vehicle);
+    
     return Results.NoContent();
 });
 
