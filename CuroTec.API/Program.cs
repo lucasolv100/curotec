@@ -22,9 +22,9 @@ builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 
 var app = builder.Build();
 
-app.MapGet("/vehicles", async (IVehicleRepository vehicleRepository) =>
+app.MapGet("/vehicles/{page:int}/{pageSize:int}", async (int page, int pageSize,IVehicleRepository vehicleRepository) =>
 {
-    var vehicles = await vehicleRepository.GetAllAsync();
+    var vehicles = await vehicleRepository.GetAllAsync(page, pageSize);
     return Results.Ok(vehicles);
 });
 
@@ -80,7 +80,7 @@ app.MapDelete("/vehicles/{id:int}", async (int id, IVehicleRepository vehicleRep
 
     vehicle.Delete();
     await vehicleRepository.UpdateAsync(vehicle);
-    
+
     return Results.NoContent();
 });
 

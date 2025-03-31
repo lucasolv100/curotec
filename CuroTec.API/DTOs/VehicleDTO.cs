@@ -6,5 +6,5 @@ using CuroTec.Domain.Enums;
 
 namespace CuroTec.API.DTOs
 {
-    record VehicleDto(VehicleType VehicleType, string Color);
+    record VehicleDto(VehicleType VehicleType, string Color, int Page, int PageSize);
 }

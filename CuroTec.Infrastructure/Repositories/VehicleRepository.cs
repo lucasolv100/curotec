@@ -18,9 +18,11 @@ namespace CuroTec.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Vehicle>> GetAllAsync()
+        public async Task<IEnumerable<Vehicle>> GetAllAsync(int page, int pageSize)
         {
-            return await _context.Vehicles.ToListAsync();
+            return await _context.Vehicles.Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
         }
 
         public async Task<Vehicle> GetByIdAsync(int id)

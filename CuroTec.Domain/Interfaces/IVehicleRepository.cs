@@ -9,7 +9,7 @@ namespace CuroTec.Domain.Interfaces
 {
     public interface IVehicleRepository
     {
-        Task<IEnumerable<Vehicle>> GetAllAsync();
+        Task<IEnumerable<Vehicle>> GetAllAsync(int page, int pageSize);
         Task<Vehicle> GetByIdAsync(int id);
         Task<Vehicle> AddAsync(Vehicle vehicle);
         Task<Vehicle> UpdateAsync(Vehicle vehicle);
