@@ -93,7 +93,7 @@ if (app.Environment.IsDevelopment())
 
     app.UseReDoc(c =>
     {
-        c.RoutePrefix = "docs"; // acessível em /docs
+        c.RoutePrefix = "docs";
         c.SpecUrl("/swagger/v1/swagger.json");
         c.DocumentTitle = "Documentação da API com ReDoc";
     });
