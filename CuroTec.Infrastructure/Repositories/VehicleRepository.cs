@@ -5,6 +5,7 @@ using CuroTec.Domain.Entities;
 
 using CuroTec.Infrastructure;
 using CuroTec.Domain.Interfaces;
+using CuroTec.Domain.Enums;
 
 namespace CuroTec.Infrastructure.Repositories
 {
@@ -25,6 +26,16 @@ namespace CuroTec.Infrastructure.Repositories
         public async Task<Vehicle> GetByIdAsync(int id)
         {
             return await _context.Vehicles.FindAsync(id);
+        }
+
+        public async Task<Vehicle> GetByTypeAsync(VehicleType type)
+        {
+            return await _context.Vehicles.FirstOrDefaultAsync(t => t.VehicleType == type); 
+        }
+
+        public async Task<Vehicle> GetByColorAsync(string color)
+        {
+            return await _context.Vehicles.FirstOrDefaultAsync(t => t.Color.Contains(color)); 
         }
 
         public async Task<Vehicle> AddAsync(Vehicle vehicle)

@@ -1,5 +1,6 @@
 using CuroTec.API.DTOs;
 using CuroTec.Domain.Entities;
+using CuroTec.Domain.Enums;
 using CuroTec.Domain.Interfaces;
 using CuroTec.Infrastructure;
 using CuroTec.Infrastructure.Repositories;
@@ -10,6 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<CuroTecContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -28,6 +31,18 @@ app.MapGet("/vehicles", async (IVehicleRepository vehicleRepository) =>
 app.MapGet("/vehicles/{id:int}", async (int id, IVehicleRepository vehicleRepository) =>
 {
     var vehicle = await vehicleRepository.GetByIdAsync(id);
+    return vehicle is not null ? Results.Ok(vehicle) : Results.NotFound();
+});
+
+app.MapGet("/vehicles/type/{type:int}", async (int type, IVehicleRepository vehicleRepository) =>
+{
+    var vehicle = await vehicleRepository.GetByTypeAsync((VehicleType)type);
+    return vehicle is not null ? Results.Ok(vehicle) : Results.NotFound();
+});
+
+app.MapGet("/vehicles/color/", async (string color, IVehicleRepository vehicleRepository) =>
+{
+    var vehicle = await vehicleRepository.GetByColorAsync(color);
     return vehicle is not null ? Results.Ok(vehicle) : Results.NotFound();
 });
 
@@ -70,8 +85,17 @@ app.MapDelete("/vehicles/{id:int}", async (int id, IVehicleRepository vehicleRep
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwagger();
+
+    app.UseReDoc(c =>
+    {
+        c.RoutePrefix = "docs"; // acessível em /docs
+        c.SpecUrl("/swagger/v1/swagger.json");
+        c.DocumentTitle = "Documentação da API com ReDoc";
+    });
 }
 
 app.UseHttpsRedirection();
 
+app.Run();
 
